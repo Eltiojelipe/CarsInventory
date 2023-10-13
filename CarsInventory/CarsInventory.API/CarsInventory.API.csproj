@@ -21,4 +21,8 @@
     <ProjectReference Include="..\ClassLibrary1\CarsInventory.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
