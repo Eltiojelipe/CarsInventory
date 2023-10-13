@@ -12,12 +12,12 @@ namespace CarsInventory.API.Data
 
         public DbSet<Aseguradora> Aseguradoras { get; set; }
         public DbSet<clienteAsegurado> asegurados { get; set; } 
-        public DbSet<clienteParticular> clienteParticulars { get; set; }
+        public DbSet<clienteParticular> particulares { get; set; }
         public DbSet<Empresa> empresas { get; set; }
         public DbSet<Poseedor> poseedores { get; set; } 
         public DbSet<Propietario> propietarios { get; set;}
-        public DbSet<tipoCliente> tiposClientees { get; set; }  
-        public DbSet<Vehiculo> vehiculoes { get;set; }
+        public DbSet<tipoCliente> tipoClientes { get; set; }  
+        public DbSet<Vehiculo> vehiculos { get;set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
