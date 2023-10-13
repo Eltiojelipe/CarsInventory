@@ -11,9 +11,8 @@ namespace CarsInventory.API.Data
 
         }
 
-        public DbSet<Aseguradora> Aseguradoras { get; set; }
-        public DbSet<Cliente> asegurados { get; set; } 
-        public DbSet<clienteParticular> particulares { get; set; }
+        public DbSet<Servicio> servicios { get; set; }
+        public DbSet<Cliente> clientes { get; set; } 
         public DbSet<Empresa> empresas { get; set; }
         public DbSet<Poseedor> poseedores { get; set; } 
         public DbSet<Tecnico> tecnicos { get; set; }    
