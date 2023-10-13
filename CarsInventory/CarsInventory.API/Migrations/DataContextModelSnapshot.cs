@@ -34,7 +34,7 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Aseguradoras");
+                    b.ToTable("Aseguradoras", (string)null);
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Empresa", b =>
@@ -58,7 +58,7 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("empresas");
+                    b.ToTable("empresas", (string)null);
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Poseedor", b =>
@@ -77,7 +77,7 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("poseedores");
+                    b.ToTable("poseedores", (string)null);
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Propietario", b =>
@@ -99,7 +99,7 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("propietarios");
+                    b.ToTable("propietarios", (string)null);
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Vehiculo", b =>
@@ -121,7 +121,7 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("vehiculoes");
+                    b.ToTable("vehiculoes", (string)null);
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.clienteAsegurado", b =>
@@ -140,7 +140,7 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("asegurados");
+                    b.ToTable("asegurados", (string)null);
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.clienteParticular", b =>
@@ -156,7 +156,7 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("clienteParticulars");
+                    b.ToTable("clienteParticulars", (string)null);
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.tipoCliente", b =>
@@ -181,7 +181,7 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tiposClientees");
+                    b.ToTable("tiposClientees", (string)null);
                 });
 #pragma warning restore 612, 618
         }
