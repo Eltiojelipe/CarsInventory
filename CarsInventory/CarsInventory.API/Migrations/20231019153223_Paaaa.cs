@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarsInventory.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Inicial : Migration
+    public partial class Paaaa : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -75,11 +75,18 @@ namespace CarsInventory.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     marca = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     modelo = table.Column<int>(type: "int", nullable: false),
-                    placa = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    placa = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClienteId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_vehiculos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_vehiculos_clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,32 +125,6 @@ namespace CarsInventory.API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "poseedores",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClienteId = table.Column<int>(type: "int", nullable: false),
-                    VehiculoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_poseedores", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_poseedores_clientes_ClienteId",
-                        column: x => x.ClienteId,
-                        principalTable: "clientes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_poseedores_vehiculos_VehiculoId",
-                        column: x => x.VehiculoId,
-                        principalTable: "vehiculos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_clientes_cedula",
                 table: "clientes",
@@ -155,22 +136,6 @@ namespace CarsInventory.API.Migrations
                 table: "empresas",
                 columns: new[] { "nit", "nombre" },
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_poseedores_ClienteId",
-                table: "poseedores",
-                column: "ClienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_poseedores_Id",
-                table: "poseedores",
-                column: "Id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_poseedores_VehiculoId",
-                table: "poseedores",
-                column: "VehiculoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_servicios_ClienteId",
@@ -186,14 +151,16 @@ namespace CarsInventory.API.Migrations
                 name: "IX_servicios_TecnicoId",
                 table: "servicios",
                 column: "TecnicoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_vehiculos_ClienteId",
+                table: "vehiculos",
+                column: "ClienteId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "poseedores");
-
             migrationBuilder.DropTable(
                 name: "servicios");
 
@@ -201,13 +168,13 @@ namespace CarsInventory.API.Migrations
                 name: "vehiculos");
 
             migrationBuilder.DropTable(
-                name: "clientes");
-
-            migrationBuilder.DropTable(
                 name: "empresas");
 
             migrationBuilder.DropTable(
                 name: "tecnicos");
+
+            migrationBuilder.DropTable(
+                name: "clientes");
         }
     }
 }

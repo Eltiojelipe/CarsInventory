@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarsInventory.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231013180738_Inicial")]
-    partial class Inicial
+    [Migration("20231019153223_Paaaa")]
+    partial class Paaaa
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,32 +110,6 @@ namespace CarsInventory.API.Migrations
                     b.ToTable("empresas");
                 });
 
-            modelBuilder.Entity("CarsInventory.Shared.Entities.Poseedor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehiculoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.HasIndex("VehiculoId");
-
-                    b.ToTable("poseedores");
-                });
-
             modelBuilder.Entity("CarsInventory.Shared.Entities.Servicio", b =>
                 {
                     b.Property<int>("Id")
@@ -219,6 +193,9 @@ namespace CarsInventory.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
                     b.Property<string>("marca")
                         .HasColumnType("nvarchar(max)");
 
@@ -230,26 +207,9 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClienteId");
+
                     b.ToTable("vehiculos");
-                });
-
-            modelBuilder.Entity("CarsInventory.Shared.Entities.Poseedor", b =>
-                {
-                    b.HasOne("CarsInventory.Shared.Entities.Cliente", "Cliente")
-                        .WithMany("Poseedor")
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarsInventory.Shared.Entities.Vehiculo", "Vehiculo")
-                        .WithMany("Poseedor")
-                        .HasForeignKey("VehiculoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-
-                    b.Navigation("Vehiculo");
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Servicio", b =>
@@ -279,11 +239,22 @@ namespace CarsInventory.API.Migrations
                     b.Navigation("empresa");
                 });
 
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Vehiculo", b =>
+                {
+                    b.HasOne("CarsInventory.Shared.Entities.Cliente", "Cliente")
+                        .WithMany("Vehiculo")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
             modelBuilder.Entity("CarsInventory.Shared.Entities.Cliente", b =>
                 {
-                    b.Navigation("Poseedor");
-
                     b.Navigation("Servicio");
+
+                    b.Navigation("Vehiculo");
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Empresa", b =>
@@ -294,11 +265,6 @@ namespace CarsInventory.API.Migrations
             modelBuilder.Entity("CarsInventory.Shared.Entities.Tecnico", b =>
                 {
                     b.Navigation("Servicio");
-                });
-
-            modelBuilder.Entity("CarsInventory.Shared.Entities.Vehiculo", b =>
-                {
-                    b.Navigation("Poseedor");
                 });
 #pragma warning restore 612, 618
         }

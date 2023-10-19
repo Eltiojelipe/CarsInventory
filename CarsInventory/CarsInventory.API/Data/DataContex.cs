@@ -14,7 +14,7 @@ namespace CarsInventory.API.Data
         public DbSet<Servicio> servicios { get; set; }
         public DbSet<Cliente> clientes { get; set; } 
         public DbSet<Empresa> empresas { get; set; }
-        public DbSet<Poseedor> poseedores { get; set; } 
+
         public DbSet<Tecnico> tecnicos { get; set; }    
         public DbSet<Vehiculo> vehiculos { get;set; }
 
@@ -24,7 +24,7 @@ namespace CarsInventory.API.Data
 
             modelBuilder.Entity<Cliente>().HasIndex(c => c.cedula).IsUnique();
             modelBuilder.Entity<Empresa>().HasIndex("nit", "nombre").IsUnique();
-            modelBuilder.Entity<Poseedor>().HasIndex("Id").IsUnique();
+            
         }
 
     }

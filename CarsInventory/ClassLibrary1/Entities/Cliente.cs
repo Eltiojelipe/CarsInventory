@@ -41,9 +41,10 @@ namespace CarsInventory.Shared.Entities
         public TipoCliente Tipo { get; set; }
 
 
+        public ICollection<Vehiculo>? Vehiculo { get; set; }
         public ICollection<Servicio>? Servicio { get; set; }
 
-        public ICollection<Poseedor>? Poseedor { get; set; }  
+
     }
 
 

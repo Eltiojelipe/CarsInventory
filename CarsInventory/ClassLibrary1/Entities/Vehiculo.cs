@@ -14,6 +14,7 @@ namespace CarsInventory.Shared.Entities
         public int modelo { get; set; } 
         public string? placa { get; set; }  
 
-        public ICollection<Poseedor>? Poseedor { get; set; }
+        public Cliente? Cliente { get; set; }    
+        public int ClienteId { get; set; }  
     }
 }
