@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarsInventory.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Paaaa : Migration
+    public partial class Jueves : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

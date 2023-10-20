@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarsInventory.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231019153223_Paaaa")]
-    partial class Paaaa
+    [Migration("20231019153821_Jueves")]
+    partial class Jueves
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
