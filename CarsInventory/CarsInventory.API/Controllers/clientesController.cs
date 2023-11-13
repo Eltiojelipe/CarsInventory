@@ -24,10 +24,10 @@ namespace CarsInventory.API.Controllers
                 return Ok(await _context.clientes.ToListAsync());
             }
 
-            [HttpGet("{id:int}")]
-            public async Task<ActionResult> Get(int id)
+            [HttpGet("{clienteId:int}")]
+            public async Task<ActionResult> Get(int clienteId)
             {
-                var cliente = await _context.clientes.FirstOrDefaultAsync(c => c.Id == id);
+                var cliente = await _context.clientes.FirstOrDefaultAsync(c => c.clienteId == clienteId);
 
                 if (cliente == null)
                 {
@@ -55,11 +55,11 @@ namespace CarsInventory.API.Controllers
                 return Ok(clientes);
             }
 
-            [HttpDelete("{id:int}")]
-            public async Task<ActionResult> Delete(int id)
+            [HttpDelete("{clienteId:int}")]
+            public async Task<ActionResult> Delete(int clienteId)
             {
                 var afectado = await _context.clientes
-                    .Where(x => x.Id == id)
+                    .Where(x => x.clienteId == clienteId)
                     .ExecuteDeleteAsync();
 
                 if (afectado == 0)

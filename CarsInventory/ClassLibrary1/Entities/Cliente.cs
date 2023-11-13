@@ -8,43 +8,15 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CarsInventory.Shared.Entities
 {
-    public enum TipoCliente
-    {
-        Asegurado,
-        Particular
-    }
     public class Cliente
     {
-        public int Id {  get; set; }
+        public int clienteId { get; set; }
+        public Persona persona { get; set; }
 
-        [Display(Name = "Documento")]
-        [MaxLength(20, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string? cedula { get; set; }
+        public string Med_Pago { get; set; }
 
-        [Display(Name = "Nombres")]
-        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string? nombre { get; set; } 
-
-        [Display(Name = "Apellidos")]
-        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string? apellido { get; set; } 
-
-        public string direccion { get; set; } = null!;
-
-        public string? telefono { get; set; }  
-        
-        public string? correo { get; set; }
-
-        public TipoCliente Tipo { get; set; }
-
-
-        public ICollection<Vehiculo>? Vehiculo { get; set; }
-        public ICollection<Servicio>? Servicio { get; set; }
-
-
+        public ICollection<Servicio> Servicio { get; set; }
+        public ICollection<Vehiculo> Vehiculo { get; set;}
     }
 
 

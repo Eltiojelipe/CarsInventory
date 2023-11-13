@@ -22,10 +22,10 @@ namespace CarsInventory.API.Controllers
             return Ok(await _context.vehiculos.ToListAsync());
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult> Get(int id)
+        [HttpGet("{placaVh:string}")]
+        public async Task<ActionResult> Get(string placaVh)
         {
-            var vehiculos = await _context.vehiculos.FirstOrDefaultAsync(c => c.Id == id);
+            var vehiculos = await _context.vehiculos.FirstOrDefaultAsync(c => c.placaVh == placaVh);
 
             if (vehiculos == null)
             {
@@ -53,11 +53,11 @@ namespace CarsInventory.API.Controllers
             return Ok(vehiculos);
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
+        [HttpDelete("{placaVh:string}")]
+        public async Task<ActionResult> Delete(string placaVh)
         {
             var afectado = await _context.vehiculos
-                .Where(x => x.Id == id)
+                .Where(x => x.placaVh == placaVh)
                 .ExecuteDeleteAsync();
 
             if (afectado == 0)

@@ -22,7 +22,7 @@ namespace CarsInventory.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CarsInventory.Shared.Entities.Cliente", b =>
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Ciudad", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,24 +30,65 @@ namespace CarsInventory.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Tipo")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("cod_postal")
                         .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("ciudades");
+                });
+
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Cliente", b =>
+                {
+                    b.Property<int>("clienteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("clienteId"));
+
+                    b.Property<string>("Med_Pago")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("personaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("clienteId");
+
+                    b.HasIndex("personaId");
+
+                    b.ToTable("clientes");
+                });
+
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Persona", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Fec_Nac")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("apellido")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("cedula")
+                    b.Property<string>("cedulaId")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("correo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("direccion")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nombre")
@@ -60,51 +101,10 @@ namespace CarsInventory.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("cedula")
+                    b.HasIndex("cedulaId")
                         .IsUnique();
 
-                    b.ToTable("clientes");
-                });
-
-            modelBuilder.Entity("CarsInventory.Shared.Entities.Empresa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("correo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("descripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("direccion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("fechFundacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("nit")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("nit", "nombre")
-                        .IsUnique();
-
-                    b.ToTable("empresas");
+                    b.ToTable("personas");
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Servicio", b =>
@@ -115,69 +115,63 @@ namespace CarsInventory.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CiudadId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmpresaId")
-                        .HasColumnType("int");
+                    b.Property<string>("Direccion_fin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Direccion_origen")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TecnicoId")
                         .HasColumnType("int");
 
-                    b.Property<double>("costo")
-                        .HasColumnType("float");
+                    b.Property<int?>("VehiculoId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("costo")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("fechaServicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("tipo")
-                        .HasColumnType("int");
+                    b.Property<string>("placaVh")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CiudadId");
+
                     b.HasIndex("ClienteId");
 
-                    b.HasIndex("EmpresaId");
-
                     b.HasIndex("TecnicoId");
+
+                    b.HasIndex("VehiculoId");
 
                     b.ToTable("servicios");
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Tecnico", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("tecnicoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("tecnicoId"));
 
-                    b.Property<string>("apellido")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("cedula")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("correo")
+                    b.Property<string>("Num_Permiso_Conducir")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("direccion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("personaId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.HasKey("tecnicoId");
 
-                    b.Property<string>("telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
+                    b.HasIndex("personaId");
 
                     b.ToTable("tecnicos");
                 });
@@ -199,27 +193,41 @@ namespace CarsInventory.API.Migrations
                     b.Property<int>("modelo")
                         .HasColumnType("int");
 
-                    b.Property<string>("placa")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("placaVh")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
+                    b.HasIndex("placaVh")
+                        .IsUnique();
+
                     b.ToTable("vehiculos");
+                });
+
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Cliente", b =>
+                {
+                    b.HasOne("CarsInventory.Shared.Entities.Persona", "persona")
+                        .WithMany("Cliente")
+                        .HasForeignKey("personaId");
+
+                    b.Navigation("persona");
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Servicio", b =>
                 {
-                    b.HasOne("CarsInventory.Shared.Entities.Cliente", "Cliente")
+                    b.HasOne("CarsInventory.Shared.Entities.Ciudad", "Ciudad")
                         .WithMany("Servicio")
-                        .HasForeignKey("ClienteId")
+                        .HasForeignKey("CiudadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarsInventory.Shared.Entities.Empresa", "empresa")
+                    b.HasOne("CarsInventory.Shared.Entities.Cliente", "Cliente")
                         .WithMany("Servicio")
-                        .HasForeignKey("EmpresaId")
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -229,11 +237,26 @@ namespace CarsInventory.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CarsInventory.Shared.Entities.Vehiculo", "Vehiculo")
+                        .WithMany("Servicio")
+                        .HasForeignKey("VehiculoId");
+
+                    b.Navigation("Ciudad");
+
                     b.Navigation("Cliente");
 
                     b.Navigation("Tecnico");
 
-                    b.Navigation("empresa");
+                    b.Navigation("Vehiculo");
+                });
+
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Tecnico", b =>
+                {
+                    b.HasOne("CarsInventory.Shared.Entities.Persona", "persona")
+                        .WithMany("Tecnico")
+                        .HasForeignKey("personaId");
+
+                    b.Navigation("persona");
                 });
 
             modelBuilder.Entity("CarsInventory.Shared.Entities.Vehiculo", b =>
@@ -247,6 +270,11 @@ namespace CarsInventory.API.Migrations
                     b.Navigation("Cliente");
                 });
 
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Ciudad", b =>
+                {
+                    b.Navigation("Servicio");
+                });
+
             modelBuilder.Entity("CarsInventory.Shared.Entities.Cliente", b =>
                 {
                     b.Navigation("Servicio");
@@ -254,12 +282,19 @@ namespace CarsInventory.API.Migrations
                     b.Navigation("Vehiculo");
                 });
 
-            modelBuilder.Entity("CarsInventory.Shared.Entities.Empresa", b =>
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Persona", b =>
+                {
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Tecnico");
+                });
+
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Tecnico", b =>
                 {
                     b.Navigation("Servicio");
                 });
 
-            modelBuilder.Entity("CarsInventory.Shared.Entities.Tecnico", b =>
+            modelBuilder.Entity("CarsInventory.Shared.Entities.Vehiculo", b =>
                 {
                     b.Navigation("Servicio");
                 });
